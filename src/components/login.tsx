@@ -26,17 +26,9 @@ class Login extends Component<{}, { forms: Forms }> {
 
 
     handleClick = () => {
-        // const validInput = this.state.value == ''
-        // if (validInput) {
-        //     alert("Please submit your email")
-        // }
-        // else if(this.state.pass === ''){
-        //      alert("Please submit your password")
-        //  }
-        // else {
-        //     alert("Thank you")
-        // }
-
+        const invalid = this.state.forms.some(el => el.value === '')
+        invalid && alert("Please input your password")
+        !invalid && alert("Thank you")
     }
 
 
