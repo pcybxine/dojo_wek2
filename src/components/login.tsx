@@ -14,21 +14,6 @@ class Login extends Component<{}, { forms: Forms }> {
         })
     }
 
-    constructor(props: any) {
-        super(props);
-
-        // this.state = { value: '', pass: '' };
-        // this.state = {
-        //     forms:
-        //         [
-        //             { name: 'password', value: '' }
-        //         ]
-        // }
-        // this.setState(({forms: [
-        //     {name: 'password', value: ''}
-        // ]}))
-    }
-
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fieldName = e.target.name;
         const forms = this.state.forms.map(el => el.name === fieldName ? {
