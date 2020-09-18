@@ -14,7 +14,7 @@ class Login extends Component<{}, { forms: Forms }> {
         })
     }
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fieldName = e.target.name;
         const forms = this.state.forms.map(el => el.name === fieldName ? {
             value: e.target.value,
@@ -25,7 +25,7 @@ class Login extends Component<{}, { forms: Forms }> {
 
 
 
-    handleClick = () => {
+    handleOnSubmit = () => {
         const invalid = this.state.forms.some(el => el.value === '')
         invalid && alert("Please input your password")
         !invalid && alert("Thank you")
@@ -40,11 +40,10 @@ class Login extends Component<{}, { forms: Forms }> {
 
                 {this.state && this.state.forms.map((e, i) =>
                     <>
-                    {e.name}
-                    <label key={i}  >
-                        {e.name}
-                        <input value={e.value} name={e.name} onChange={this.handleChange} />
-                    </label> <br/>
+                        <label key={i}  >
+                            {e.name}
+                            <input value={e.value} name={e.name} onChange={this.handleOnChange} />
+                        </label> <br />
                     </>)}
 
                 {this.state && (<div>
@@ -54,24 +53,20 @@ class Login extends Component<{}, { forms: Forms }> {
                             <label>Email address:</label>
                             <input type="text"
                                 name='email'
-                                // value={this.state.value}
-                                onChange={this.handleChange}
-                            // onChange={ e => this.handleChange(e) }
+                                onChange={this.handleOnChange}
                             />
                         </div>
                         <div>
                             <label>Password:</label>
                             <input type="password"
                                 name='password'
-                                onChange={this.handleChange}
-                            //value={this.state.pass} 
-                            //onChange={this.handleChange}
+                                onChange={this.handleOnChange}
                             />
                         </div>
                     </form>
                     <button
                         type="submit"
-                        onClick={this.handleClick}
+                        onClick={this.handleOnSubmit}
                     >
                         Register
                 </button>
