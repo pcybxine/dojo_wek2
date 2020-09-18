@@ -42,6 +42,7 @@ class Login extends Component<{}, { forms: Forms }> {
                     <>
                     {e.name}
                     <label key={i}  >
+                        {e.name}
                         <input value={e.value} name={e.name} onChange={this.handleChange} />
                     </label> <br/>
                     </>)}
