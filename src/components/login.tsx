@@ -1,56 +1,107 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-class Login extends Component<any, any> {
+type FormValue = { name: string, value: string }
+type Forms = FormValue[];
+class Login extends Component<{}, { forms: Forms }> {
+    forms: Forms | undefined;
 
-    constructor(props: any){
+    componentDidMount() {
+        this.setState({
+            forms: [
+                { name: 'email', value: '' },
+                { name: 'password', value: '' },
+            ]
+        })
+    }
+
+    constructor(props: any) {
         super(props);
-        this.state = { value: '',pass:'' };
+
+        // this.state = { value: '', pass: '' };
+        // this.state = {
+        //     forms:
+        //         [
+        //             { name: 'password', value: '' }
+        //         ]
+        // }
+        // this.setState(({forms: [
+        //     {name: 'password', value: ''}
+        // ]}))
     }
-      
-    handleChange = (e: any) =>{ 
-        this.setState({value: e.target.value});
+
+    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const fieldName = e.target.name;
+        const forms = this.state.forms.map(el => el.name === fieldName ? {
+            value: e.target.value,
+            name: fieldName,
+        } : el)
+        this.setState({ forms })
     }
+
+
 
     handleClick = () => {
-        if(this.state.value === ''){
-            alert("Please submit your email")
-        }
+        // const validInput = this.state.value == ''
+        // if (validInput) {
+        //     alert("Please submit your email")
+        // }
         // else if(this.state.pass === ''){
         //      alert("Please submit your password")
         //  }
-        else{
-            alert("Thank you")
-        }
+        // else {
+        //     alert("Thank you")
+        // }
 
-      }
-    
-    render() {
-        return (
-            <div>
-            {/* <div>{this.state.value}</div>     */}
-            <form>
-                <div>
-                    <label>Email address:</label>
-                    <input type="text" 
-                        value={this.state.value} 
-                        onChange={ e => this.handleChange(e) }/>    
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" 
-                        //value={this.state.pass} 
-                        //onChange={this.handleChange}
-                    />
-                </div>            
-            </form>
-                <button 
-                    type="submit" 
-                    onClick={this.handleClick}
-                >
-                    Register
-                </button>
-        </div>
-        );
-      }
     }
+
+
+    render() {
+
+        console.log('render', this.state)
+        return (
+            <>
+
+                {this.state && this.state.forms.map((e, i) =>
+                    <>
+                    {e.name}
+                    <label key={i}  >
+                        <input value={e.value} name={e.name} onChange={this.handleChange} />
+                    </label> <br/>
+                    </>)}
+
+                {this.state && (<div>
+                    {/* <div>{this.state.value}</div>     */}
+                    <form>
+                        <div>
+                            <label>Email address:</label>
+                            <input type="text"
+                                name='email'
+                                // value={this.state.value}
+                                onChange={this.handleChange}
+                            // onChange={ e => this.handleChange(e) }
+                            />
+                        </div>
+                        <div>
+                            <label>Password:</label>
+                            <input type="password"
+                                name='password'
+                                onChange={this.handleChange}
+                            //value={this.state.pass} 
+                            //onChange={this.handleChange}
+                            />
+                        </div>
+                    </form>
+                    <button
+                        type="submit"
+                        onClick={this.handleClick}
+                    >
+                        Register
+                </button>
+                </div>)}
+
+                {!this.state && <div>loading...</div>}
+            </>
+        );
+    }
+}
 export default Login;
